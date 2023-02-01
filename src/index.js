@@ -9,6 +9,7 @@ const baseConfig = {
   offsetLeft: 0,
   offsetRight: 0,
   extraClasses: '',
+  onDestroy: () => {},
 }
 let defaults = { ...baseConfig }
 let containers = {}
@@ -130,6 +131,7 @@ class Toast {
     this.offsetLeft = options.offsetLeft
     this.offsetRight = options.offsetRight
     this.extraClasses = options.extraClasses
+    this.onDestroy = options.onDestroy
 
     let style = `width:auto;pointer-events:auto;display:inline-flex;white-space:pre-wrap;opacity:${this.opacity};`
     const classes = ['notification', this.extraClasses]
@@ -194,6 +196,8 @@ class Toast {
       this.element.remove()
       delete containers.position
     }
+
+    this.onDestroy();
   }
 
   removeParent(element) {
